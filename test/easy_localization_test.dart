@@ -35,6 +35,7 @@ void main() {
       expect(
           await Localization.load(
             Locale('en'),
+            Locale('en'),
             path: "path",
             useOnlyLangCode: true,
             assetLoader: JsonAssetLoader(),
@@ -45,11 +46,12 @@ void main() {
     test('load() Failed assertion', () async {
       try {
         await Localization.load(
-            null,
-            path: null,
-            useOnlyLangCode: true,
-            assetLoader: JsonAssetLoader(),
-          );
+          null,
+          null,
+          path: null,
+          useOnlyLangCode: true,
+          assetLoader: JsonAssetLoader(),
+        );
       } on AssertionError catch (e) {
         // throw  AssertionError("Expected ArgumentError");
         expect(e, isAssertionError);
@@ -59,6 +61,7 @@ void main() {
     test('load() correctly sets locale path', () async {
       expect(
           await Localization.load(
+            Locale('en'),
             Locale('en'),
             path: "path",
             useOnlyLangCode: true,
@@ -73,6 +76,7 @@ void main() {
       expect(
           await Localization.load(
             Locale('en', 'us'),
+            Locale('en', 'us'),
             path: "path",
             useOnlyLangCode: true,
             assetLoader: JsonAssetLoader(),
@@ -84,6 +88,7 @@ void main() {
       expect(
           await Localization.load(
             Locale('en', 'us'),
+            Locale('en', 'us'),
             path: "path",
             useOnlyLangCode: false,
             assetLoader: JsonAssetLoader(),
@@ -94,10 +99,13 @@ void main() {
 
     group('tr', () {
       setUpAll(() async {
-        await Localization.load(Locale('en'),
-            path: "path",
-            useOnlyLangCode: true,
-            assetLoader: JsonAssetLoader());
+        await Localization.load(
+          Locale('en'),
+          Locale('en'),
+          path: "path",
+          useOnlyLangCode: true,
+          assetLoader: JsonAssetLoader(),
+        );
       });
       test('finds and returns resource', () {
         expect(Localization.instance.tr("test"), "test");
@@ -181,10 +189,13 @@ void main() {
 
     group('plural', () {
       setUpAll(() async {
-        await Localization.load(Locale('en-US'),
-            path: "path",
-            useOnlyLangCode: true,
-            assetLoader: JsonAssetLoader());
+        await Localization.load(
+          Locale('en-US'),
+          Locale('en-US'),
+          path: "path",
+          useOnlyLangCode: true,
+          assetLoader: JsonAssetLoader(),
+        );
       });
 
       test('zero', () {
@@ -220,10 +231,13 @@ void main() {
 
     group('extensions', () {
       setUpAll(() async {
-        await Localization.load(Locale('en'),
-            path: "path",
-            useOnlyLangCode: true,
-            assetLoader: JsonAssetLoader());
+        await Localization.load(
+          Locale('en'),
+          Locale('en'),
+          path: "path",
+          useOnlyLangCode: true,
+          assetLoader: JsonAssetLoader(),
+        );
       });
       group('string', () {
         test('tr', () {
@@ -238,10 +252,13 @@ void main() {
 
     group('extensions', () {
       setUpAll(() async {
-        await Localization.load(Locale('en'),
-            path: "path",
-            useOnlyLangCode: true,
-            assetLoader: JsonAssetLoader());
+        await Localization.load(
+          Locale('en'),
+          Locale('en'),
+          path: "path",
+          useOnlyLangCode: true,
+          assetLoader: JsonAssetLoader(),
+        );
       });
       group('string', () {
         test('tr', () {

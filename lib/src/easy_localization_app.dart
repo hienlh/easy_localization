@@ -30,6 +30,7 @@ class EasyLocalization extends StatefulWidget {
         delegate = _EasyLocalizationDelegate(
             path: path,
             supportedLocales: supportedLocales,
+            fallbackLocale: fallbackLocale,
             useOnlyLangCode: useOnlyLangCode,
             assetLoader: assetLoader),
         super(key: key);
@@ -208,15 +209,18 @@ class _EasyLocalizationDelegate extends LocalizationsDelegate<Localization> {
   final String path;
   final AssetLoader assetLoader;
   final List<Locale> supportedLocales;
+  final Locale fallbackLocale;
 
   ///  * use only the lang code to generate i18n file path like en.json or ar.json
   final bool useOnlyLangCode;
 
-  _EasyLocalizationDelegate(
-      {@required this.path,
-      @required this.supportedLocales,
-      this.useOnlyLangCode = false,
-      this.assetLoader});
+  _EasyLocalizationDelegate({
+    @required this.path,
+    @required this.supportedLocales,
+    this.fallbackLocale,
+    this.useOnlyLangCode = false,
+    this.assetLoader,
+  });
 
   @override
   bool isSupported(Locale locale) => supportedLocales.contains(locale);
@@ -225,6 +229,7 @@ class _EasyLocalizationDelegate extends LocalizationsDelegate<Localization> {
   Future<Localization> load(Locale value) async {
     await Localization.load(
       value,
+      fallbackLocale ?? supportedLocales.first,
       path: path,
       useOnlyLangCode: useOnlyLangCode,
       assetLoader: assetLoader,

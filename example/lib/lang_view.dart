@@ -57,6 +57,11 @@ class LanguageView extends StatelessWidget {
                 title: "English",
                 subtitle: "English",
                 locale: Locale("en", "US")),
+            buildSwitchListTileMenuItem(
+                context: context,
+                title: "Vietnam",
+                subtitle: "Vietnam",
+                locale: Locale("vi", "VI")),
             buildDivider(),
           ],
         ),
