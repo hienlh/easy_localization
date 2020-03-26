@@ -7,6 +7,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 void main() {
+  Intl.defaultLocale = 'ar_DZ';
   runApp(EasyLocalization(
     child: MyApp(),
     supportedLocales: [

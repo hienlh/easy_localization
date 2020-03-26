@@ -62,14 +62,12 @@ class _EasyLocalizationLocale extends ChangeNotifier {
     // If saved locale then get
     if (_savedLocale != null && this.saveLocale) {
       locale = _savedLocale;
-      log('easy localization: Load saved locale ${_savedLocale.toString()}');
+      log('Load saved locale ${_savedLocale.toString()}');
     } else {
       locale = supportedLocales.firstWhere((locale) => _checkInitLocale(locale),
           orElse: () => _getFallbackLocale(supportedLocales, fallbackLocale));
     }
-    //Set locale
-    if (Intl.defaultLocale == null) locale = _locale;
-    log('easy localization: Set locale ${this._locale.toString()}');
+    log('Set locale ${this._locale.toString()}');
   }
 
   bool _checkInitLocale(Locale locale) {
@@ -94,8 +92,10 @@ class _EasyLocalizationLocale extends ChangeNotifier {
 
   // Get Device Locale
   Future<Locale> _getDeviceLocale() async {
-    final String _deviceLocale = await findSystemLocale();
-    print(_deviceLocale);
+    final String _deviceLocale = Intl.defaultLocale != null
+        ? Intl.defaultLocale
+        : await findSystemLocale();
+    log('Device local: $_deviceLocale');
     final _deviceLocaleList = _deviceLocale.split("_");
     return (_deviceLocaleList.length > 1)
         ? Locale(_deviceLocaleList[0], _deviceLocaleList[1])
@@ -108,11 +108,13 @@ class _EasyLocalizationLocale extends ChangeNotifier {
   set locale(Locale l) {
     _locale = l;
 
-    if (_locale != null)
-      Intl.defaultLocale = Intl.canonicalizedLocale(
+    if (_locale != null) {
+      final defaultLocale = Intl.canonicalizedLocale(
           l.countryCode == null || l.countryCode.isEmpty
               ? l.languageCode
               : l.toString());
+      Intl.defaultLocale = defaultLocale;
+    }
 
     if (this.saveLocale) _saveLocale(_locale);
 
